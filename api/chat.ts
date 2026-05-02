@@ -69,15 +69,21 @@ export default async function handler(req: any, res: any) {
     });
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.statusText}`);
+      const errorText = await response.text();
+      console.error(`Ask June API Error (${response.status}):`, errorText);
+      throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      console.error('Unexpected API response structure:', data);
+      throw new Error('Unexpected API response structure');
+    }
     const reply = data.choices[0].message.content;
 
     res.status(200).json({ reply });
   } catch (error: any) {
-    console.error('Error calling Ask June API:', error);
-    res.status(500).json({ error: 'Failed to generate response' });
+    console.error('Error calling Ask June API:', error.message || error);
+    res.status(500).json({ error: error.message || 'Failed to generate response' });
   }
 }

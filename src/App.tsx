@@ -581,7 +581,8 @@ function BotTab() {
       });
 
       if (!res.ok) {
-        throw new Error('API request failed');
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || 'API request failed');
       }
 
       const data = await res.json();
@@ -590,11 +591,11 @@ function BotTab() {
       setMessages(prev => 
         prev.map(m => m.id === placeholderId ? { ...m, content: reply } : m)
       );
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error("Chat error:", error);
       setMessages(prev => {
         const lastMsgId = prev[prev.length - 1].id;
-        return prev.map(m => m.id === lastMsgId ? { ...m, content: "⚠️ System error connecting to the June engine." } : m);
+        return prev.map(m => m.id === lastMsgId ? { ...m, content: `⚠️ System error: ${error.message || "Failed to connect to the June engine."}` } : m);
       });
     } finally {
       setIsLoading(false);
