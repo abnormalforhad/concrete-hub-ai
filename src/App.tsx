@@ -34,6 +34,90 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Slider } from './components/ui/slider';
 import { Button } from './components/ui/button';
 
+// --- Animated Logo Components ---
+function AnimatedLogo({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="50%" stopColor="#60a5fa" />
+          <stop offset="100%" stopColor="#34d399" />
+        </linearGradient>
+        <linearGradient id="logoGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#f472b6" />
+          <stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
+      {/* Outer rotating ring */}
+      <g style={{ transformOrigin: '20px 20px', animation: 'logo-spin 8s linear infinite' }}>
+        <path
+          d="M20 4L33.86 12V28L20 36L6.14 28V12L20 4Z"
+          stroke="url(#logoGrad)"
+          strokeWidth="1.5"
+          fill="none"
+          strokeDasharray="120"
+          style={{ animation: 'logo-dash 4s ease-in-out infinite' }}
+        />
+      </g>
+      {/* Inner pulsing hexagon */}
+      <g style={{ transformOrigin: '20px 20px', animation: 'logo-pulse 3s ease-in-out infinite' }}>
+        <path
+          d="M20 10L28.66 15V25L20 30L11.34 25V15L20 10Z"
+          fill="url(#logoGrad)"
+          opacity="0.15"
+        />
+        <path
+          d="M20 10L28.66 15V25L20 30L11.34 25V15L20 10Z"
+          stroke="url(#logoGrad)"
+          strokeWidth="1.5"
+          fill="none"
+        />
+      </g>
+      {/* Center dot */}
+      <circle cx="20" cy="20" r="3" fill="url(#logoGrad)" style={{ animation: 'logo-pulse 2s ease-in-out infinite' }} />
+      {/* Orbiting particle */}
+      <g style={{ transformOrigin: '20px 20px', animation: 'logo-orbit 3s linear infinite' }}>
+        <circle cx="20" cy="20" r="1.5" fill="#60a5fa" />
+      </g>
+    </svg>
+  );
+}
+
+function AnimatedBotLogo({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#34d399" />
+        </linearGradient>
+      </defs>
+      {/* Pulsing outer ring */}
+      <circle cx="18" cy="18" r="16" stroke="url(#botGrad)" strokeWidth="1" fill="none" opacity="0.3" style={{ transformOrigin: '18px 18px', animation: 'bot-pulse-ring 3s ease-in-out infinite' }} />
+      {/* Brain circuit paths */}
+      <g stroke="url(#botGrad)" strokeWidth="1.2" fill="none" strokeLinecap="round">
+        <path d="M10 18C10 13.58 13.58 10 18 10" style={{ strokeDasharray: 20, animation: 'logo-dash 3s ease-in-out infinite' }} />
+        <path d="M26 18C26 22.42 22.42 26 18 26" style={{ strokeDasharray: 20, animation: 'logo-dash 3s ease-in-out infinite 0.5s' }} />
+        <path d="M14 14L22 22" opacity="0.4" />
+        <path d="M22 14L14 22" opacity="0.4" />
+      </g>
+      {/* Center core */}
+      <circle cx="18" cy="18" r="3.5" fill="url(#botGrad)" opacity="0.2" />
+      <circle cx="18" cy="18" r="2" fill="url(#botGrad)" style={{ animation: 'logo-pulse 2s ease-in-out infinite' }} />
+      {/* Neural nodes */}
+      <circle cx="11" cy="13" r="1.5" fill="#818cf8" style={{ animation: 'bot-node-blink 2s ease-in-out infinite' }} />
+      <circle cx="25" cy="13" r="1.5" fill="#60a5fa" style={{ animation: 'bot-node-blink 2s ease-in-out infinite 0.4s' }} />
+      <circle cx="11" cy="23" r="1.5" fill="#34d399" style={{ animation: 'bot-node-blink 2s ease-in-out infinite 0.8s' }} />
+      <circle cx="25" cy="23" r="1.5" fill="#a78bfa" style={{ animation: 'bot-node-blink 2s ease-in-out infinite 1.2s' }} />
+      {/* Orbiting particle */}
+      <g style={{ transformOrigin: '18px 18px', animation: 'logo-spin 4s linear infinite reverse' }}>
+        <circle cx="18" cy="6" r="1" fill="#60a5fa" opacity="0.8" />
+      </g>
+    </svg>
+  );
+}
+
 // AI Configuration Context
 const BOT_SYSTEM_PROMPT = `You are the Official Concrete FAQ Bot. You are a helpful, concise AI.
 
@@ -84,9 +168,7 @@ export default function App() {
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="flex h-16 max-w-7xl mx-auto items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold text-lg">
-              C
-            </span>
+            <AnimatedLogo size={32} />
             <span className="font-semibold text-lg tracking-tight">Concrete Hub</span>
           </div>
           <div className="flex items-center gap-4">
@@ -675,8 +757,8 @@ function BotTab() {
         {/* Chat Header */}
         <div className="flex items-center gap-3 p-4 border-b border-border/40 bg-background/50">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Bot className="w-6 h-6 text-primary" />
+            <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10">
+              <AnimatedBotLogo size={28} />
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-background"></div>
           </div>
