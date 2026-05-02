@@ -54,6 +54,7 @@ export default async function handler(req: any, res: any) {
     ];
 
     const baseUrl = process.env.ASK_JUNE_BASE_URL || 'https://api.blockchain.info/ai/api/v1';
+    const modelId = process.env.ASK_JUNE_MODEL || 'june/blockchain';
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
@@ -62,7 +63,7 @@ export default async function handler(req: any, res: any) {
         'Authorization': `Bearer ${process.env.ASK_JUNE_API_KEY || process.env.GEMINI_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'june/blockchain',
+        model: modelId,
         messages: messages,
         temperature: 0.2
       })
