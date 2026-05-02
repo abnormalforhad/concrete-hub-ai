@@ -564,8 +564,8 @@ function BotTab() {
 
       // Format previous messages for the model
       const history = messages.filter(m => m.id !== 'welcome').map(m => ({
-        role: m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.content }]
+        role: m.role,
+        content: m.content
       }));
 
       // Call the Vercel Serverless Function

@@ -1,5 +1,3 @@
-import { GoogleGenAI } from '@google/genai';
-
 const BOT_SYSTEM_PROMPT = `You are the Official Concrete FAQ Bot. You are a helpful, concise AI.
 
 YOUR PRIMARY DIRECTIVE:
@@ -41,32 +39,45 @@ Other ways to contribute:
 
 FORMATTING: Use bolding and concise bullet points when helpful. Never break character.`;
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const { history, message } = req.body;
 
-    const contents = [
+    const messages = [
+      { role: 'system', content: BOT_SYSTEM_PROMPT },
       ...history,
-      { role: 'user', parts: [{ text: message }] }
+      { role: 'user', content: message }
     ];
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: contents,
-      config: {
-        systemInstruction: BOT_SYSTEM_PROMPT,
-        temperature: 0.2,
-      }
+    const baseUrl = process.env.ASK_JUNE_BASE_URL || 'https://api.askjune.ai/v1';
+
+    const response = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.ASK_JUNE_API_KEY || process.env.GEMINI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'june/blockchain',
+        messages: messages,
+        temperature: 0.2
+      })
     });
 
-    res.status(200).json({ reply: response.text });
-  } catch (error) {
-    console.error('Error calling Gemini API:', error);
+    if (!response.ok) {
+      throw new Error(`API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const reply = data.choices[0].message.content;
+
+    res.status(200).json({ reply });
+  } catch (error: any) {
+    console.error('Error calling Ask June API:', error);
     res.status(500).json({ error: 'Failed to generate response' });
   }
 }
