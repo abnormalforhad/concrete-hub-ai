@@ -635,7 +635,7 @@ function BotTab() {
                   <div className="space-y-2">
                     <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Engine Configuration</label>
                     <div className="text-sm px-3 py-2 bg-secondary/50 rounded border border-border/50 select-none">
-                      Model: <span className="font-mono text-primary ml-1">june/blockchain</span>
+                      Model: <span className="font-mono text-primary ml-1">blockchain/june</span>
                     </div>
                   </div>
                   <div className="space-y-2">

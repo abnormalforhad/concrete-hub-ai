@@ -53,8 +53,8 @@ export default async function handler(req: any, res: any) {
       { role: 'user', content: message }
     ];
 
-    const baseUrl = process.env.ASK_JUNE_BASE_URL || 'https://api.blockchain.info/ai/api/v1';
-    const modelId = process.env.ASK_JUNE_MODEL || 'june/blockchain';
+    const baseUrl = process.env.ASK_JUNE_BASE_URL || 'https://api.askjune.ai/v1';
+    const modelId = process.env.ASK_JUNE_MODEL || 'blockchain/june';
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
