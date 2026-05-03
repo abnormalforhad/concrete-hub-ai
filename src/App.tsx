@@ -193,7 +193,7 @@ export default function App() {
             </TabsTrigger>
             <TabsTrigger value="bot" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-4 bg-primary/10">
               <Bot className="w-4 h-4 mr-2 text-primary" />
-              Ask June Bot
+              Concrete help Bot
             </TabsTrigger>
           </TabsList>
 
