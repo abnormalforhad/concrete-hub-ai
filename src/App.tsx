@@ -34,33 +34,31 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Slider } from './components/ui/slider';
 import { Button } from './components/ui/button';
 
-// --- Animated Logo Component ---
-const LOGO_GIF = 'https://qoatlegrzpgpkxpg.public.blob.vercel-storage.com/ezgif-55e853641876a7b8.gif';
-
+// --- Animated SVG Logo Components ---
 function AnimatedLogo({ size = 32 }: { size?: number }) {
   return (
-    <img
-      src={LOGO_GIF}
-      alt="Concrete Hub Logo"
-      width={size}
-      height={size}
-      className="rounded-md object-contain"
-      draggable={false}
-    />
+    <svg width={size} height={size} viewBox="0 0 32 32" style={{ overflow: 'visible' }}>
+      <style>{`
+        @keyframes logo-stamp { 0%{transform:scaleY(0);opacity:0} 60%{transform:scaleY(1.08);opacity:1} 100%{transform:scaleY(1);opacity:1} }
+        @keyframes logo-crack { 0%{stroke-dashoffset:40;opacity:0} 100%{stroke-dashoffset:0;opacity:1} }
+        .ls-block { animation: logo-stamp 0.5s cubic-bezier(.22,1,.36,1) both; }
+        .ls-c1 { stroke-dasharray:40; stroke-dashoffset:40; animation: logo-crack 0.6s ease 0.3s forwards; }
+        .ls-c2 { stroke-dasharray:25; stroke-dashoffset:25; animation: logo-crack 0.5s ease 0.45s forwards; }
+      `}</style>
+      <g className="ls-block">
+        <rect x="0" y="0" width="32" height="32" rx="6" fill="#2C2C2A"/>
+        <rect x="0" y="0" width="32" height="3" rx="1" fill="#888780"/>
+        <rect x="0" y="29" width="32" height="3" rx="1" fill="#888780"/>
+        <text x="16" y="22" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="18" letterSpacing="1" fill="#F1EFE8">C</text>
+      </g>
+      <path className="ls-c1" d="M22 6 L25 18 L23 26" fill="none" stroke="#888780" strokeWidth="0.8" strokeLinecap="round"/>
+      <path className="ls-c2" d="M8 8 L6 16 L9 24" fill="none" stroke="#888780" strokeWidth="0.6" strokeLinecap="round"/>
+    </svg>
   );
 }
 
 function AnimatedBotLogo({ size = 28 }: { size?: number }) {
-  return (
-    <img
-      src={LOGO_GIF}
-      alt="Bot Engine Logo"
-      width={size}
-      height={size}
-      className="rounded-full object-contain"
-      draggable={false}
-    />
-  );
+  return <AnimatedLogo size={size} />;
 }
 
 // AI Configuration Context
@@ -104,6 +102,7 @@ Other ways to contribute:
 3. You can contribute by making a website, spreading awareness about Concrete's use cases, or similar value-add activities.
 
 FORMATTING: Use bolding and concise bullet points when helpful. Never break character.`;
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('points');
 
@@ -130,6 +129,45 @@ export default function App() {
         
         {/* Intro */}
         <section className="space-y-4">
+          {/* Hero Logo */}
+          <div className="flex justify-center mb-4">
+            <svg width="360" height="120" viewBox="0 0 420 160" style={{ maxWidth: '100%' }}>
+              <style>{`
+                @keyframes h-stamp { 0%{transform:scaleY(0) translateY(-20px);opacity:0} 60%{transform:scaleY(1.08);opacity:1} 100%{transform:scaleY(1);opacity:1} }
+                @keyframes h-fill  { 0%{width:0} 100%{width:100%} }
+                @keyframes h-fade  { 0%{opacity:0;transform:translateY(6px)} 100%{opacity:1;transform:translateY(0)} }
+                @keyframes h-crack { 0%{stroke-dashoffset:120;opacity:0} 100%{stroke-dashoffset:0;opacity:1} }
+                @keyframes h-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+                .ht { animation: h-stamp 0.55s cubic-bezier(.22,1,.36,1) 0.1s both; }
+                .hf { animation: h-fill 0.8s cubic-bezier(.77,0,.18,1) 0.05s both; }
+                .hg { animation: h-fade 0.5s ease 0.7s both; }
+                .hc1 { stroke-dasharray:120; stroke-dashoffset:120; animation: h-crack 0.9s ease 0.3s forwards; }
+                .hc2 { stroke-dasharray:80;  stroke-dashoffset:80;  animation: h-crack 0.7s ease 0.5s forwards; }
+                .hc3 { stroke-dasharray:60;  stroke-dashoffset:60;  animation: h-crack 0.6s ease 0.6s forwards; }
+                .ha  { animation: h-pulse 3s ease-in-out 1.2s infinite; }
+              `}</style>
+              <rect x="0" y="0" width="420" height="5" fill="#2C2C2A"/>
+              <rect className="hf" x="0" y="0" height="5" fill="#888780" style={{ width: 0 }}/>
+              <rect x="0" y="5" width="420" height="120" fill="#2C2C2A"/>
+              <line x1="0" y1="42" x2="420" y2="42" stroke="#3a3a38" strokeWidth="0.5"/>
+              <line x1="0" y1="78" x2="420" y2="78" stroke="#3a3a38" strokeWidth="0.5"/>
+              <line x1="0" y1="114" x2="420" y2="114" stroke="#3a3a38" strokeWidth="0.5"/>
+              <line x1="140" y1="5" x2="140" y2="125" stroke="#3a3a38" strokeWidth="0.5"/>
+              <line x1="280" y1="5" x2="280" y2="125" stroke="#3a3a38" strokeWidth="0.5"/>
+              <path className="hc1" d="M310 20 L322 55 L315 90" fill="none" stroke="#888780" strokeWidth="1" strokeLinecap="round"/>
+              <path className="hc2" d="M360 35 L370 60 L365 85" fill="none" stroke="#888780" strokeWidth="0.7" strokeLinecap="round"/>
+              <path className="hc3" d="M50 18 L44 50 L52 75" fill="none" stroke="#888780" strokeWidth="0.6" strokeLinecap="round"/>
+              <g className="ht">
+                <text x="210" y="95" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="98" letterSpacing="8" fill="#F1EFE8">CONCRETE</text>
+              </g>
+              <rect x="0" y="125" width="420" height="4" fill="#888780"/>
+              <rect className="ha" x="0" y="129" width="420" height="2" fill="#5F5E5A"/>
+              <g className="hg">
+                <text x="210" y="150" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="13" letterSpacing="6" fill="#888780">BUILD ON SOLID GROUND</text>
+              </g>
+            </svg>
+          </div>
+
           <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
             <Zap className="mr-1 h-3.5 w-3.5" />
             Ecosystem Strategy Tools
@@ -202,13 +240,10 @@ function PointsCalculatorTab() {
   const [duration, setDuration] = useState(30);
   const [referrals, setReferrals] = useState(2);
 
-  // Mock calculation logic for points
-  // Base points: 10 per day per $1000
   const basePoints = (deposit / 1000) * 10 * duration;
-  const referralMultiplier = 1 + (referrals * 0.05); // 5% boost per referral
+  const referralMultiplier = 1 + (referrals * 0.05);
   const totalPoints = Math.floor(basePoints * referralMultiplier);
 
-  // Graph data prediction over time
   const chartData = useMemo(() => {
     const data = [];
     let currentPoints = 0;
@@ -217,7 +252,7 @@ function PointsCalculatorTab() {
       data.push({
         name: `Day ${day}`,
         points: Math.floor(currentPoints),
-        yield: (deposit * (0.08 / 365) * day).toFixed(2), // 8% base APY assumed
+        yield: (deposit * (0.08 / 365) * day).toFixed(2),
       });
     }
     return data;
@@ -225,7 +260,6 @@ function PointsCalculatorTab() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Controls Sidebar */}
       <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm border-border/50">
         <CardHeader>
           <CardTitle className="text-xl flex items-center gap-2">
@@ -235,58 +269,35 @@ function PointsCalculatorTab() {
           <CardDescription>Adjust your position to forecast returns.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-8">
-          
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <label className="text-sm font-medium text-foreground">Deposit Size (USDC)</label>
               <span className="text-sm font-mono bg-secondary px-2 py-1 rounded text-secondary-foreground">${deposit.toLocaleString()}</span>
             </div>
-            <Slider 
-              value={[deposit]} 
-              onValueChange={(val) => setDeposit(val[0])} 
-              max={100000} 
-              step={1000} 
-            />
+            <Slider value={[deposit]} onValueChange={(val) => setDeposit(val[0])} max={100000} step={1000} />
           </div>
-
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <label className="text-sm font-medium text-foreground">Duration (Days)</label>
               <span className="text-sm font-mono bg-secondary px-2 py-1 rounded text-secondary-foreground">{duration} Days</span>
             </div>
-            <Slider 
-              value={[duration]} 
-              onValueChange={(val) => setDuration(val[0])} 
-              max={365} 
-              step={1} 
-              min={1}
-            />
+            <Slider value={[duration]} onValueChange={(val) => setDuration(val[0])} max={365} step={1} min={1} />
           </div>
-
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <label className="text-sm font-medium text-foreground">Active Referrals</label>
               <span className="text-sm font-mono bg-secondary px-2 py-1 rounded text-secondary-foreground">{referrals} Users</span>
             </div>
-            <Slider 
-              value={[referrals]} 
-              onValueChange={(val) => setReferrals(val[0])} 
-              max={50} 
-              step={1} 
-            />
+            <Slider value={[referrals]} onValueChange={(val) => setReferrals(val[0])} max={50} step={1} />
             <p className="text-xs text-muted-foreground flex items-center">
               <Info className="w-3 h-3 mr-1" />
               Each referral grants a 5% multiplier boost.
             </p>
           </div>
-
         </CardContent>
       </Card>
 
-      {/* Main Results Data */}
       <div className="lg:col-span-2 space-y-6">
-        
-        {/* KPI Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card className="bg-gradient-to-br from-card to-card/40 border-border/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-5">
@@ -305,7 +316,6 @@ function PointsCalculatorTab() {
               </div>
             </CardContent>
           </Card>
-
           <Card className="bg-gradient-to-br from-card to-card/40 border-border/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-5">
               <TrendingUp className="w-24 h-24" />
@@ -325,7 +335,6 @@ function PointsCalculatorTab() {
           </Card>
         </div>
 
-        {/* Chart */}
         <Card className="bg-card/30 border-border/50">
           <CardHeader>
             <CardTitle className="text-lg">Growth Trajectory</CardTitle>
@@ -340,25 +349,10 @@ function PointsCalculatorTab() {
                       <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="var(--color-muted-foreground)" 
-                    fontSize={12} 
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis 
-                    stroke="var(--color-muted-foreground)" 
-                    fontSize={12} 
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
-                  />
+                  <XAxis dataKey="name" stroke="var(--color-muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--color-muted-foreground)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`} />
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
-                  <RechartsTooltip 
-                    contentStyle={{ backgroundColor: 'var(--color-popover)', borderColor: 'var(--color-border)', borderRadius: '8px' }}
-                    itemStyle={{ color: 'var(--color-foreground)' }}
-                  />
+                  <RechartsTooltip contentStyle={{ backgroundColor: 'var(--color-popover)', borderColor: 'var(--color-border)', borderRadius: '8px' }} itemStyle={{ color: 'var(--color-foreground)' }} />
                   <Area type="monotone" dataKey="points" stroke="var(--color-primary)" strokeWidth={2} fillOpacity={1} fill="url(#colorPoints)" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -372,20 +366,16 @@ function PointsCalculatorTab() {
 
 // --- Tab: Liquidation Protection Visualizer ---
 function ProtectionVisualizerTab() {
-  const [marketHealth, setMarketHealth] = useState(80); // 0 (crash) to 100 (bull)
+  const [marketHealth, setMarketHealth] = useState(80);
   
-  // Logic
   const collateralValue = 10000 * (marketHealth / 100);
   const debt = 6000;
   const healthFactor = collateralValue / debt;
-  
-  const isLiquidatedStandard = healthFactor < 1.05; // Standard DeFi Liquidation threshold
-  // Concrete protection kicks in and prevents liquidation by automatically managing health
+  const isLiquidatedStandard = healthFactor < 1.05;
   const concreteHealthFactor = isLiquidatedStandard ? 1.10 : healthFactor; 
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Simulation Engine */}
       <div className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-bold">Stress Test Your CDP</h2>
@@ -393,7 +383,6 @@ function ProtectionVisualizerTab() {
             Move the slider to simulate a sudden market downturn. Watch how Concrete intercepts standard liquidations.
           </p>
         </div>
-
         <Card className="bg-card/50 border-border/50">
           <CardHeader>
             <div className="flex justify-between items-center">
@@ -408,18 +397,11 @@ function ProtectionVisualizerTab() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <Slider 
-              value={[marketHealth]} 
-              onValueChange={(val) => setMarketHealth(val[0])} 
-              max={100} 
-              step={1} 
-              min={10}
-            />
+            <Slider value={[marketHealth]} onValueChange={(val) => setMarketHealth(val[0])} max={100} step={1} min={10} />
             <div className="flex justify-between text-xs text-muted-foreground font-mono">
               <span>Severe Crash</span>
               <span>Bull Market</span>
             </div>
-
             <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-border/50">
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Debt Owed</p>
@@ -432,7 +414,6 @@ function ProtectionVisualizerTab() {
             </div>
           </CardContent>
         </Card>
-        
         <div className="bg-primary/5 rounded-lg p-6 border border-primary/20 space-y-4">
           <h4 className="font-semibold flex items-center gap-2">
             <ShieldCheck className="text-primary w-5 h-5" />
@@ -447,15 +428,9 @@ function ProtectionVisualizerTab() {
         </div>
       </div>
 
-      {/* Visualizer output */}
       <div className="space-y-6">
-        
-        {/* Standard Protocol */}
         <motion.div 
-          animate={{
-            scale: isLiquidatedStandard ? 0.98 : 1,
-            opacity: isLiquidatedStandard ? 0.8 : 1,
-          }}
+          animate={{ scale: isLiquidatedStandard ? 0.98 : 1, opacity: isLiquidatedStandard ? 0.8 : 1 }}
           className={`relative rounded-xl border p-6 transition-all duration-500 ${
             isLiquidatedStandard ? 'bg-red-500/5 border-red-500/30' : 'bg-card/30 border-border/50'
           }`}
@@ -465,10 +440,7 @@ function ProtectionVisualizerTab() {
               <Zap className="w-3 h-3 mr-1" /> LIQUIDATED
             </div>
           )}
-          <h3 className="text-lg font-medium mb-4 flex items-center">
-            Standard DeFi Protocol
-          </h3>
-          
+          <h3 className="text-lg font-medium mb-4 flex items-center">Standard DeFi Protocol</h3>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-1">
@@ -478,13 +450,9 @@ function ProtectionVisualizerTab() {
                 </span>
               </div>
               <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                <motion.div 
-                  className={`h-full ${isLiquidatedStandard ? 'bg-red-500' : 'bg-emerald-500'}`}
-                  animate={{ width: `${Math.min(100, Math.max(0, healthFactor * 30))}%` }}
-                />
+                <motion.div className={`h-full ${isLiquidatedStandard ? 'bg-red-500' : 'bg-emerald-500'}`} animate={{ width: `${Math.min(100, Math.max(0, healthFactor * 30))}%` }} />
               </div>
             </div>
-            
             {isLiquidatedStandard ? (
               <div className="p-3 bg-red-500/10 rounded border border-red-500/20 text-sm text-red-400">
                 Position seized by liquidators. -10% penalty applied.
@@ -497,12 +465,8 @@ function ProtectionVisualizerTab() {
           </div>
         </motion.div>
 
-        {/* Concrete Protected */}
         <motion.div 
-          animate={{
-            y: isLiquidatedStandard ? -10 : 0,
-            boxShadow: isLiquidatedStandard ? '0 10px 40px -10px rgba(255, 255, 255, 0.1)' : 'none'
-          }}
+          animate={{ y: isLiquidatedStandard ? -10 : 0, boxShadow: isLiquidatedStandard ? '0 10px 40px -10px rgba(255, 255, 255, 0.1)' : 'none' }}
           className={`relative rounded-xl border p-6 transition-all duration-500 bg-card/60 backdrop-blur ${
             isLiquidatedStandard ? 'border-primary shadow-lg ring-1 ring-primary/50' : 'border-border'
           }`}
@@ -512,10 +476,7 @@ function ProtectionVisualizerTab() {
               <ShieldCheck className="w-3 h-3 mr-1" /> PROTECTED
             </div>
           )}
-          <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-            Concrete Appchain
-          </h3>
-          
+          <h3 className="text-lg font-medium mb-4 flex items-center gap-2">Concrete Appchain</h3>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-1">
@@ -525,14 +486,10 @@ function ProtectionVisualizerTab() {
                 </span>
               </div>
               <div className="h-2 w-full bg-secondary rounded-full overflow-hidden relative">
-                <motion.div 
-                  className="h-full bg-primary"
-                  animate={{ width: `${Math.min(100, Math.max(0, concreteHealthFactor * 30))}%` }}
-                />
+                <motion.div className="h-full bg-primary" animate={{ width: `${Math.min(100, Math.max(0, concreteHealthFactor * 30))}%` }} />
                 <div className="absolute top-0 bottom-0 border-l border-primary/50 w-px" style={{ left: '31.5%' }} title="Liquidation Threshold (1.05)" />
               </div>
             </div>
-            
             {isLiquidatedStandard ? (
               <div className="p-3 bg-primary/10 rounded border border-primary/30 text-sm text-primary">
                 Transient liquidity deployed from Concrete Vaults to boost health factor. Liquidation prevented.
@@ -544,7 +501,6 @@ function ProtectionVisualizerTab() {
             )}
           </div>
         </motion.div>
-
       </div>
     </div>
   );
@@ -564,17 +520,11 @@ function BotTab() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
-  const [juneKey, setJuneKey] = useState(localStorage.getItem('ask_june_key') || '');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  const handleSaveConfig = () => {
-    localStorage.setItem('ask_june_key', juneKey);
-    setShowConfig(false);
-  };
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -585,26 +535,18 @@ function BotTab() {
     setIsLoading(true);
 
     try {
-      // Add thinking placeholder
       const placeholderId = (Date.now() + 1).toString();
       setMessages(prev => [...prev, { id: placeholderId, role: 'assistant', content: '...' }]);
 
-      // Format previous messages for the model
       const history = messages.filter(m => m.id !== 'welcome').map(m => ({
         role: m.role,
         content: m.content
       }));
 
-      // Call the Vercel Serverless Function
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          history,
-          message: userMessage.content
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ history, message: userMessage.content })
       });
 
       if (!res.ok) {
@@ -615,9 +557,7 @@ function BotTab() {
       const data = await res.json();
       const reply = data.reply || "I'm sorry, I couldn't generate a response.";
 
-      setMessages(prev => 
-        prev.map(m => m.id === placeholderId ? { ...m, content: reply } : m)
-      );
+      setMessages(prev => prev.map(m => m.id === placeholderId ? { ...m, content: reply } : m));
     } catch (error: any) {
       console.error("Chat error:", error);
       setMessages(prev => {
@@ -638,8 +578,6 @@ function BotTab() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-h-[800px]">
-      
-      {/* Settings / Status Sidebar */}
       <div className="lg:col-span-1 space-y-4">
         <Card className="bg-card/30 border-border/50">
           <CardHeader className="pb-4 border-b border-border/20">
@@ -694,12 +632,7 @@ function BotTab() {
         </Card>
       </div>
 
-      {/* Main Chat Area */}
       <Card className="lg:col-span-3 flex flex-col h-[600px] border-border/50 bg-card/50 backdrop-blur-sm relative overflow-hidden">
-        
-
-
-        {/* Chat Header */}
         <div className="flex items-center gap-3 p-4 border-b border-border/40 bg-background/50">
           <div className="relative">
             <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10">
@@ -713,7 +646,6 @@ function BotTab() {
           </div>
         </div>
 
-        {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {messages.map((msg) => (
             <div key={msg.id} className={["flex gap-3", msg.role === 'user' ? 'flex-row-reverse' : ''].join(" ")}>
@@ -729,7 +661,7 @@ function BotTab() {
                   </div>
                 ) : (
                   <div className="prose prose-sm prose-invert max-w-none">
-                     <Markdown>{msg.content}</Markdown>
+                    <Markdown>{msg.content}</Markdown>
                   </div>
                 )}
               </div>
@@ -738,7 +670,6 @@ function BotTab() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
         <div className="p-4 border-t border-border/40 bg-background/30">
           <div className="relative flex items-end">
             <textarea
@@ -764,9 +695,7 @@ function BotTab() {
             AI can make mistakes. Always verify information using the <a href="https://docs.concrete.xyz" className="text-primary hover:underline">official docs</a>.
           </p>
         </div>
-        
       </Card>
-
     </div>
   );
 }
